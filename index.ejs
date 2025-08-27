@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Teams</h2>
+  <% teams.forEach(team => { %>
+    <div><a href="/team/<%= team._id %>"><%= team.name %> (Points: <%= team.points %>)</a></div>
+  <% }); %>
+
+  <h2>Add Team</h2>
+  <form action="/teams" method="POST">
+    <input type="text" name="name" placeholder="Team Name" required>
+    <input type="text" name="logo" placeholder="Logo URL">
+    <input type="text" name="colors" placeholder="Colors (e.g., red,white)">
+    <button>Add</button>
+  </form>
+
+  <h2>Matches</h2>
+  <% matches.forEach(match => { %>
+    <div><a href="/match/<%= match._id %>"><%= match.team1.name %> vs <%= match.team2.name %> (Status: <%= match.status %>)</a></div>
+  <% }); %>
+
+  <h2>Add Match</h2>
+  <form action="/matches" method="POST">
+    <select name="team1">
+      <% teams.forEach(t => { %><option value="<%= t._id %>"><%= t.name %></option><% }); %>
+    </select>
+    vs
+    <select name="team2">
+      <% teams.forEach(t => { %><option value="<%= t._id %>"><%= t.name %></option><% }); %>
+    </select>
+    <button>Add</button>
+  </form>
+
+  <h2>Standings</h2>
+  <table>
+    <tr><th>Team</th><th>Points</th><th>GD</th></tr>
+    <% teams.forEach(team => { %>
+      <tr><td><%= team.name %></td><td><%= team.points %></td><td><%= team.goalsFor - team.goalsAgainst %></td></tr>
+    <% }); %>
+  </table>
+</div>
