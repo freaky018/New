@@ -1,0 +1,17 @@
+<div class="container">
+  <h2><%= match.team1.name %> <%= match.score1 %> - <%= match.score2 %> <%= match.team2.name %></h2>
+  <h3>Events</h3>
+  <ul id="events">
+    <% match.events.forEach(event => { %>
+      <li>Min <%= event.minute %>: <%= event.type %> by <%= event.player.name %> (<%= event.detail %>)</li>
+    <% }); %>
+  </ul>
+  <form action="/match/<%= match._id %>/event" method="POST">
+    <select name="type"><option>goal</option><option>assist</option><option>yellow</option><option>red</option><option>substitution</option></select>
+    <input type="text" name="player" placeholder="Player ID">  <!-- In prod, use dropdown -->
+    <input type="number" name="minute" placeholder="Minute">
+    <input type="text" name="detail" placeholder="Detail">
+    <button>Add Event</button>
+  </form>
+  <button onclick="finishMatch('<%= match._id %>')">Finish Match</button>
+</div>
