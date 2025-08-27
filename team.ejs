@@ -1,0 +1,15 @@
+<div class="container">
+  <h2><%= team.name %> (Colors: <%= team.colors %>)</h2>
+  <img src="<%= team.logo %>" alt="Logo" width="100">
+  <h3>Players</h3>
+  <ul>
+    <% team.players.forEach(player => { %>
+      <li><%= player.name %> (Goals: <%= player.goals %>, Assists: <%= player.assists %>)</li>
+    <% }); %>
+  </ul>
+  <form action="/players" method="POST">
+    <input type="hidden" name="teamId" value="<%= team._id %>">
+    <input type="text" name="name" placeholder="Player Name" required>
+    <button>Add Player</button>
+  </form>
+</div>
